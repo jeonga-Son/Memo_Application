@@ -1,17 +1,21 @@
 <template>
   <div class="memo">
     <ul>
-      <li>메모 1 내용</li>
-      <li>메모 2 내용</li>
-      <li>메모 3 내용</li>
-      <li>메모 4 내용</li>
-      <li>메모 5 내용</li>
+      <li v-for="(d, index) in data" :key="index">{{ d }}</li>
     </ul>
   </div>
 </template>
 
 <script>
-export default {};
+export default {
+  setup() {
+    const data = ["메모 1 내용", "메모 2 내용", "메모 3 내용", "메모 4 내용"];
+
+    return {
+      data,
+    };
+  },
+};
 </script>
 
 <style lang="scss" scoped>
