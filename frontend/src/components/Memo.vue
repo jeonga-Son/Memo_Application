@@ -11,6 +11,7 @@
 
 <script>
 import { reactive } from "vue";
+import axios from "axios";
 
 export default {
   setup() {
@@ -21,6 +22,11 @@ export default {
     const add = () => {
       state.data.push("추가된 메모 내용");
     };
+
+    // 프론트엔드에서 백엔드에게 데이터를 요청한다.
+    axios.get("/api/memos").then((res) => {
+      state.data = res.data;
+    });
 
     return {
       state,
@@ -38,12 +44,12 @@ export default {
   }
   ul {
     list-style: none;
-    padding: 15px 0;
+    padding: 15px;
     margin: 0;
 
     li {
       padding: 15px;
-      margin: 5px;
+      margin: 10px 0;
       border: 1px solid #eee;
     }
   }
