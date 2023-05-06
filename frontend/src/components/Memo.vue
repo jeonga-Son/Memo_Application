@@ -4,7 +4,9 @@
       <button class="btn btn-primary" @click="add">+ 추가</button>
     </div>
     <ul>
-      <li v-for="(d, index) in state.data" :key="index">{{ d }}</li>
+      <li v-for="(d, index) in state.data" :key="index" @click="edit(index)">
+        {{ d }}
+      </li>
     </ul>
   </div>
 </template>
@@ -26,6 +28,14 @@ export default {
       });
     };
 
+    const edit = (index) => {
+      const content = prompt("내용을 입력해주세요", state.data[index]);
+      // console.log(content);
+      axios.put("/api/memos/" + index, { content }).then((res) => {
+        state.data = res.data;
+      });
+    };
+
     // 프론트엔드에서 백엔드에게 데이터를 요청한다.
     axios.get("/api/memos").then((res) => {
       state.data = res.data;
@@ -34,6 +44,7 @@ export default {
     return {
       state,
       add,
+      edit,
     };
   },
 };

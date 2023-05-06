@@ -17,6 +17,13 @@ app.post("/api/memos", (req, res) => {
   res.send(memos);
 });
 
+app.put("/api/memos/:index", (req, res) => {
+  console.log(req.params.index);
+  console.log(req.body);
+  memos[req.params.index] = req.body.content;
+  res.send(memos);
+});
+
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`);
 });
