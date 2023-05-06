@@ -2,19 +2,23 @@ const express = require("express");
 const app = express();
 const port = 3000;
 const bodyParser = require("body-parser");
+const database = require("./database");
 
 const memos = [];
 
 app.use(bodyParser.json());
 
-app.get("/api/memos", (req, res) => {
-  res.send(memos);
+app.get("/api/memos", async (req, res) => {
+  const result = await database.run("select * from memos");
+  res.send(result);
 });
 
-app.post("/api/memos", (req, res) => {
-  // console.log(req.body);
-  memos.push(req.body.content);
-  res.send(memos);
+app.post("/api/memos", async (req, res) => {
+  await database.run(
+    `insert into memos (content) values ('${req.body.content}') `
+  );
+  const result = await database.run("select * from memos");
+  res.send(result);
 });
 
 app.put("/api/memos/:index", (req, res) => {

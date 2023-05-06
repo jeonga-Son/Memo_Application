@@ -4,8 +4,8 @@
       <button class="btn btn-primary" @click="add">+ 추가</button>
     </div>
     <ul>
-      <li v-for="(d, index) in state.data" :key="index" @click="edit(index)">
-        {{ d }}
+      <li v-for="d in state.data" :key="d.id" @click="edit(d.id)">
+        {{ d.content }}
       </li>
     </ul>
   </div>
@@ -28,10 +28,10 @@ export default {
       });
     };
 
-    const edit = (index) => {
-      const content = prompt("내용을 입력해주세요", state.data[index]);
+    const edit = (id) => {
+      const content = prompt("내용을 입력해주세요", state.data[id]);
       // console.log(content);
-      axios.put("/api/memos/" + index, { content }).then((res) => {
+      axios.put("/api/memos/" + id, { content }).then((res) => {
         state.data = res.data;
       });
     };
