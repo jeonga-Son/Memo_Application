@@ -20,7 +20,10 @@ export default {
     });
 
     const add = () => {
-      state.data.push("추가된 메모 내용");
+      const content = prompt("내용을 입력해주세요.");
+      axios.post("/api/memos", { content: content }).then((res) => {
+        state.data = res.data;
+      });
     };
 
     // 프론트엔드에서 백엔드에게 데이터를 요청한다.
