@@ -21,11 +21,12 @@ app.post("/api/memos", async (req, res) => {
   res.send(result);
 });
 
-app.put("/api/memos/:index", (req, res) => {
-  console.log(req.params.index);
-  console.log(req.body);
-  memos[req.params.index] = req.body.content;
-  res.send(memos);
+app.put("/api/memos/:id", async (req, res) => {
+  await database.run(
+    `update memos set content = '${req.body.content}' where id = ${req.params.id} `
+  );
+  const result = await database.run("select * from memos");
+  res.send(result);
 });
 
 app.listen(port, () => {
