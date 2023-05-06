@@ -14,17 +14,18 @@ app.get("/api/memos", async (req, res) => {
 });
 
 app.post("/api/memos", async (req, res) => {
-  await database.run(
-    `insert into memos (content) values ('${req.body.content}') `
-  );
+  await database.run("insert into memos (content) values (?)", [
+    req.body.content,
+  ]);
   const result = await database.run("select * from memos");
   res.send(result);
 });
 
 app.put("/api/memos/:id", async (req, res) => {
-  await database.run(
-    `update memos set content = '${req.body.content}' where id = ${req.params.id} `
-  );
+  await database.run("update memos set content = ? where id = ?", [
+    req.body.content,
+    req.params.id,
+  ]);
   const result = await database.run("select * from memos");
   res.send(result);
 });
