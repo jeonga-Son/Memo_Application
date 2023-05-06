@@ -15,7 +15,7 @@ import { reactive } from "vue";
 export default {
   setup() {
     const state = reactive({
-      data: ["메모 1 내용", "메모 2 내용", "메모 3 내용", "메모 4 내용"],
+      data: [],
     });
 
     const add = () => {
@@ -37,14 +37,14 @@ export default {
     text-align: right;
   }
   ul {
-    border-top: 1px solid #eee;
     list-style: none;
     padding: 15px 0;
     margin: 0;
 
     li {
-      padding: 5px 10px;
+      padding: 15px;
       margin: 5px;
+      border: 1px solid #eee;
     }
   }
 }
